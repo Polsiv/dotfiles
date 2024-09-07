@@ -13,7 +13,7 @@ tput civis #hides cursor
 
 for port in $(seq 1 65535); do
 
-    (echo '' > /dev/etc/127.0.0.1/$port) 2>/dev/null && echo -e "\n[+] $port - open!" &
+    (echo '' > /dev/tcp/127.0.0.1/$port) 2>/dev/null && echo -e "\n[+] $port - open!" &
 
     # & creates a thread
 
