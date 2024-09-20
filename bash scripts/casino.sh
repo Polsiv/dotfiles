@@ -22,7 +22,6 @@ function helpPanel(){
     echo -e "\t ${blueColor}-h)  ${endColor}${grayColor}Help ${endColor}\n"
 }
 
-
 #Ctrl+C
 trap ctrl_c INT
 
@@ -30,58 +29,89 @@ trap ctrl_c INT
 function martingala(){
 
     tput civis
-    echo -e "\n${yellowColor}[+] ${endColor} ${grayColor} current money: ${grayColor} ${blueColor}$1 ${endColor}"
-    echo -ne "${yellowColor}[+] ${endColor}${grayColor}Money to bet: ${grayColor}" && read initial_bet
-    echo -ne "${yellowColor}[+] ${endColor}${grayColor}${grayColor} Choose wisely (even/odd): ${endColor}" && read even_odd
+    echo -e "\n${yellowColor}[+]${endColor}${grayColor}Current money:${grayColor} ${blueColor}$1 ${endColor}"
+    echo -ne "${yellowColor}[+]${endColor}${grayColor}Money to bet:${grayColor}" && read initial_bet
+    echo -ne "${yellowColor}[+]${endColor}${grayColor}${grayColor}Choose wisely (even/odd):${endColor}" && read even_odd
 
     backup_bet=$initial_bet
+    counter=0
+    bad_luck=" "
+    huge_money=$money
 
     while true; do
 
-
-
         money=$(($money-$initial_bet))
-        echo -e "\n[+] $initial_bet on the line! and this yo money: $money"
         rand_number="$(($RANDOM % 37))"
-        echo -e "${grayColor}[+] Number rolled: $rand_number${endColor}"
+#       echo -e "\n[+] $initial_bet on the line! and this yo money: $money"
+#       echo -e "${grayColor}[+] Number rolled: $rand_number${endColor}"
         
-        if [ ! $money -le 0 ]; then
+        if [ ! $money -lt 0 ]; then
             if [ $even_odd == "even" ]; then
                 if [ "$(($rand_number % 2))" -eq 0 ]; then
                     if [ $rand_number -eq 0 ]; then
-                        echo -e "${redColor}[-] 0 rolled, YOU LOSE!${endColor}"
+#                       echo -e "${redColor}[-] 0 rolled, YOU LOSE!${endColor}"
+                        bad_luck+="$rand_number "
                         initial_bet=$(($initial_bet * 2))
-                        echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
+#                       echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
                     else
                         reward=$(($initial_bet*2))
-                        echo -e "${greenColor}[+] Even, YOU WIN! ${endColor}"
-                        echo -e "${grayColor}[+] Heres the reward: ${endColor}${greenColor} $reward${endColor}"
+#                       echo -e "${greenColor}[+] Even, YOU WIN! ${endColor}"
+#                       echo -e "${grayColor}[+] Heres the reward: ${endColor}${greenColor} $reward${endColor}"
+                        bad_luck=""                        
                         money=$(($money+$reward))
-                        echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
+                        if [ $money -gt $huge_money ]; then
+                           let huge_money=$money
+                        fi
+#                       echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
                         initial_bet=$backup_bet
                     fi
                 else
-                    echo -e "${redColor}[-] Odd, YOU LOSE!${endColor}"
+#                   echo -e "${redColor}[-] Odd, YOU LOSE!${endColor}"
                     initial_bet=$(($initial_bet * 2))
-                    echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
+                    bad_luck+="$rand_number "
+#                   echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
+                fi
+
+            else
+                if [ "$(($rand_number % 2))" -eq 1 ]; then
+                    
+                    reward=$(($initial_bet*2))
+#                   echo -e "${greenColor}[+] Odd, YOU WIN! ${endColor}"
+#                   echo -e "${grayColor}[+] Heres the reward: ${endColor}${greenColor} $reward${endColor}"
+                    bad_luck=""                        
+                    money=$(($money+$reward))
+                    if [ $money -gt $huge_money ]; then
+                        let huge_money=$money
+                    fi
+#                   echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
+                    initial_bet=$backup_bet
+                    
+                else
+#                   echo -e "${redColor}[-] Even    , YOU LOSE!${endColor}"
+                    initial_bet=$(($initial_bet * 2))
+                    bad_luck+="$rand_number "
+#                   echo -e "${grayColor}[+] Here's yo Money: $money ${endColor}"
                 fi
             fi
         else
             echo -e "\n${redColor}[!] You ran out of money my G!${endColor}\n"
+            echo -e "${yellowColor}[+] ${endColor}${grayColor} Play Counter: ${endColor}${blueColor}$counter ${endColor}"
+            echo -e "\n${yellowColor}[+]${endColor}${grayColor}Consecutive bad luck: ${endColor}${redColor} $bad_luck ${endColor}\n"
+            echo -e "\n${yellowColor}[+]${endColor}${grayColor}Max amount of money obtained:${endColor}${greenColor} $huge_money ${endColor}\n"
+            
             tput cnorm; exit 0 
         fi
-        sleep 0.5
+#        sleep 0.5
+        let counter+=1
     done
     
 }
 
 while getopts "m:t:h" args; do
-
     case $args in
         m) money=$OPTARG;;
         t) technique=$OPTARG;;
         h) helpPanel;;
-
     esac
 done
 
