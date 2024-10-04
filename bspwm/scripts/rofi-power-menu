@@ -1,0 +1,12 @@
+#!/bin/bash
+
+options="Shutdown\nReboot\nLogout\nLock"
+
+chosen=$(echo -e "$options" | rofi -dmenu -p "Power Menu:")
+
+case "$chosen" in
+    "Shutdown") systemctl poweroff ;;
+    "Reboot") systemctl reboot ;;
+    "Logout") i3-msg exit ;; # Or the command for your window manager
+    "Lock") i3lock ;; # Or another lock command
+esac
