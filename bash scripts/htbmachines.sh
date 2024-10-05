@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#Colors
-greenColor="\e[0;32m\033[1m"
-endColor="\033[0m\e[0m"
-redColor="\e[0;31m\033[1m"
-blueColor="\e[0;34m\033[1m"
-yellowColor="\e[0;33m\033[1m"
-purpleColor="\e[0;35m\033[1m"
-turquoiseColor="\e[0;36m\033[1m"
-grayColor="\e[0;37m\033[1m"
+#Colours
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
 
 # Ctrl+C
 function ctrl_c(){
 
-    echo -e "\n\n ${redColor} [!]  Exiting...${endColor}\n"
+    echo -e "\n\n ${redColour} [!]  Exiting...${endColour}\n"
     tput cnorm; exit 1 
 }
 
@@ -24,14 +24,14 @@ main_url="https://htbmachines.github.io/bundle.js"
 
 #help panel
 function helpPanel(){
-    echo -e "\n${yellowColor}[+] ${endColor}${grayColor}Usage: ${grayColor}"
-    echo -e "\t${purpleColor}d) ${endColor} ${grayColor} Search by Difficulty ${endColor}"
-    echo -e "\t${purpleColor}m) ${endColor} ${grayColor} Search by machine name ${endColor}"
-    echo -e "\t${purpleColor}i) ${endColor} ${grayColor} Search by IP address ${endColor}" 
-    echo -e "\t${purpleColor}o) ${endColor} ${grayColor} Search by Operating System${endColor}" 
-    echo -e "\t${purpleColor}u) ${endColor} ${grayColor} Update ${endColor}"
-    echo -e "\t${purpleColor}y) ${endColor} ${grayColor} Display YT link${endColor}" 
-    echo -e "\t${purpleColor}h) ${endColor} ${grayColor} Help Panel ${endColor}\n"
+    echo -e "\n${yellowColour}[+] ${endColour}${grayColour}Usage: ${grayColour}"
+    echo -e "\t${purpleColour}d) ${endColour} ${grayColour} Search by Difficulty ${endColour}"
+    echo -e "\t${purpleColour}m) ${endColour} ${grayColour} Search by machine name ${endColour}"
+    echo -e "\t${purpleColour}i) ${endColour} ${grayColour} Search by IP address ${endColour}" 
+    echo -e "\t${purpleColour}o) ${endColour} ${grayColour} Search by Operating System${endColour}" 
+    echo -e "\t${purpleColour}u) ${endColour} ${grayColour} Update ${endColour}"
+    echo -e "\t${purpleColour}y) ${endColour} ${grayColour} Display YT link${endColour}" 
+    echo -e "\t${purpleColour}h) ${endColour} ${grayColour} Help Panel ${endColour}\n"
 }
 
 #update files
@@ -41,15 +41,15 @@ function updateFiles(){
     if [ ! -f bundle.js ]; then #if the file bundle.js NOT exists
 
         
-        echo -e "\n${yellowColor}[+] ${endColor} ${grayColor}  Downloading... ${endColor}"
+        echo -e "\n${yellowColour}[+] ${endColour} ${grayColour}  Downloading... ${endColour}"
         curl -s $main_url > bundle.js
         js-beautify bundle.js | sponge bundle.js
-        echo -e "\n${yellowColor}[+]${endColor} ${grayColor}Done. ${endColor}"
+        echo -e "\n${gellowColour}[+]${endColour} ${grayColour}Done. ${endColour}"
         tput cnorm #retrieve cursor
 
     else
 
-        echo -e "\n${yellowColor}[+] ${endColor} ${grayColor}Ensuring there are available updates... ${endColor}"
+        echo -e "\n${yellowColour}[+] ${endColour} ${grayColour}Ensuring there are available updates... ${endColour}"
         tput civis
         curl -s $main_url > temp.js
         js-beautify temp.js | sponge temp.js
@@ -59,15 +59,15 @@ function updateFiles(){
 
         if [ $md5_original_value == $md5_temp_value ]; then
 
-            echo -e "\n${greenColor}[!] ${endColor} ${grayColor}No updates available. ${endColor}\n"
+            echo -e "\n${greenColour}[!] ${endColour} ${grayColour}No updates available. ${endColour}\n"
             rm temp.js 
 
         else 
     
-            echo -e "\n ${yellowColor}[+] ${endColor} ${grayColor} Downloading Updates... ${endColor}\n"
+            echo -e "\n ${yellowColour}[+] ${endColour} ${grayColour} Downloading Updates... ${endColour}\n"
             sleep 2
             rm bundle.js && mv temp.js bundle.js
-            echo -e "\n ${greenColor}[+] ${endColor} ${grayColor} Done! ${endColor}\n"
+            echo -e "\n ${greenColour}[+] ${endColour} ${grayColour} Done! ${endColour}\n"
 
         fi
     fi
@@ -80,24 +80,21 @@ function searchMachine(){
     
     machineName="$1"
     
-    echo -e "\n${yellowColor}[+]${endColor}${grayColor} Machine Properties: ${endColor} \n"
+    echo -e "\n${yellowColour}[+]${endColour}${grayColour} Machine Properties: ${endColour} \n"
 
     cat bundle.js | awk "/name: \"$machineName\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | tr -d '"' | tr  -d ',' | sed 's/^ *//'  | awk '{printf "\033[0;37m%s\033[0m \033[0;36m%s\033[0m\n", $1, $2}'
     
 }
  
+
 #searchip
 function searchIP(){
     
     machineip="$1"
     machine_name="$(cat bundle.js | grep "ip: \"$machineip\"" -B 3 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ',')"
+    echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Respective machine for${endColour} ${blueColour}$machineip${endColour}${grayColour} is:${endColour}${blueColour} $machine_name${endColour}"
+    searchMachine $machine_name
 
-    if [ $machine_name ]; then
-        echo -e "\n${yellowColor}[+]${endColor} ${grayColor}Respective machine for${endColor} ${blueColor}$machineip${endColor}${grayColor} is:${endColor}${blueColor} $machine_name${endColor}"
-        searchMachine $machine_name
-    else 
-        echo -e "\n ${redColor}[!] Ip not found!${endColor} \n"
-    fi
 }
 
 #search diff
@@ -106,10 +103,10 @@ function searchDifficulty(){
     check="$(cat bundle.js | grep "dificultad: \"$diff\"" -B 5 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ',' | column)"
     if [ "$check" ]; then
 
-        echo -e "\n${yellowColor}[+]${endColor}${grayColor} Machines on ${endColor}${blueColor}$diff ${endColor}${grayColor}difficulty:${endColor}\n"
+        echo -e "\n${yellowColour}[+]${endCOlour}${grayColour} Machines on ${endColour}${blueColour}$diff ${endColour}${grayColour}difficulty:${endColour}\n"
         cat bundle.js | grep "dificultad: \"$diff\"" -B 5 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ',' | column
     else
-        echo -e "\n${redColor}[!] Difficulty not found lol! ${endColor}\n"    
+        echo -e "\n${redColour}[!] Difficulty not found lol! ${endColour}\n"    
     fi 
 
 }
@@ -122,11 +119,11 @@ function searchOS(){
 
     if [ "$check" ]; then
 
-        echo -e "\n${yellowColor}[+]${endColor}${grayColor} Machines running on ${endColor}${blueColor}$os:${endColor}\n"
+        echo -e "\n${yellowColour}[+]${endCOlour}${grayColour} Machines running on ${endColour}${blueColour}$os:${endColour}\n"
         cat bundle.js | grep "so: \"$os\"" -B 4 | grep "name: " | awk 'NF{print $NF}' | tr -d '"', | tr -d ',' | column
 
     else
-        echo -e "\n${redColor}[!] Operating System not found lol! ${endColor}\n"
+        echo -e "\n${redColour}[!] Operating System not found lol! ${endColour}\n"
 
     fi
 
@@ -138,10 +135,10 @@ function searchSkills(){
     check="$(cat bundle.js | grep "$skill" -i -B 6 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ",")"
 
     if [ "$check" ]; then
-        echo -e "\n${yellowColor}[+]${endColor}${grayColor} Machines involving ${endColor}${blueColor}$skill:${endColor}\n"
+        echo -e "\n${yellowColour}[+]${endCOlour}${grayColour} Machines involving ${endColour}${blueColour}$skill:${endColour}\n"
         cat bundle.js | grep "$skill" -i -B 6 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d "," | column
     else
-        echo -e "\n${redColor}[!] Skill not found lol! ${endColor}\n"
+        echo -e "\n${redColour}[!] Skill not found lol! ${endColour}\n"
     fi
 }
 
@@ -151,9 +148,9 @@ function obtainLink(){
     check="$(cat bundle.js | awk "/name: \"$machineName\"/,/resuelta:/" | grep -vE "id:|sku:|resuelta" | tr -d '"' | tr  -d ',' | sed 's/^ *//'  | grep "youtube" | awk 'NF{print $NF}')"
 
     if [ "$check" ]; then
-        echo -e "\n ${yellowColor}[+]${endColor} ${grayColor}link: $check ${endColor}"    
+        echo -e "\n ${yellowColour}[+]${endColour} ${grayColour}link: $check ${endColour}"    
     else
-        echo -e "\n${redColor}[!]${endColor} ${grayColor}Not found! ${endColor}"
+        echo -e "\n${redColour}[!]${endColour} ${grayColour}Not found! ${endColour}"
     fi
 }
 
@@ -166,58 +163,60 @@ function getosDifMachine(){
     check="$(cat bundle.js | grep "so: \"$os\"" -C 4 | grep "dificultad: \"$diff\"" -B 5 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ',' | column)"
 
     if [ "$check" ]; then
-        echo -e "\n${yellowColor}[+]${endColor}${grayColor} Machines running on ${endColor}${blueColor}$os${endColor} ${grayColor}and${endColor} ${blueColor}$diff ${endColor}${grayColor}Difficulty:${endColor}\n"    
+        echo -e "\n${yellowColour}[+]${endColour}${grayColour} Machines running on ${endColour}${blueColour}$os${endColour} ${grayColour}and${endColour} ${blueColour}$diff ${endColour}${grayColour}Difficulty:${endColour}\n"    
         cat bundle.js | grep "so: \"$os\"" -C 4 | grep "dificultad: \"$diff\"" -B 5 | grep "name: " | awk 'NF{print $NF}' | tr -d '"' | tr -d ',' | column
     else
-        echo -e "\n${redColor}[!] Machines not found lol! ${endColor}\n"
+        echo -e "\n${redColour}[!] Machines not found lol! ${endColour}\n"
     fi
 }
 
-# Indicators
-machineName=""
-machineIP=""
-diff=""
-os=""
-skill=""
-
-# Flags
-flag_diff=0
-flag_os=0
 
 
-# Get options
+#Indicators 
+declare -i parameter_counter=0 # -i indicates integer
+
+#Extraflags
+declare -i flag_diff=0
+declare -i flag_os=0
+#Menus
 while getopts "m:hi:y:s:d:o:u" arg; do
+
     case $arg in
-        m) machineName="$OPTARG"; ;;
-        u) updateFiles; exit 0 ;;
-        i) machineIP="$OPTARG"; ;;
-        y) machineName="$OPTARG"; ;;
-        d) diff="$OPTARG"; flag_diff=1 ;;
-        o) os="$OPTARG"; flag_os=1 ;;
-        s) skill="$OPTARG"; ;;
-        h) helpPanel; exit 0 ;;
-        *) helpPanel; exit 1 ;;
+        m) machineName="$OPTARG"; let parameter_counter+=1;;
+        u) let parameter_counter+=2;;
+        i) machineIP="$OPTARG"; let parameter_counter+=3;;
+        y) machineName="$OPTARG"; let parameter_counter+=4;;
+        d) diff="$OPTARG"; flag_diff=1; let parameter_counter+=5;;
+        o) os="$OPTARG"; flag_os=1; let parameter_counter+=6;;
+        s) skill="$OPTARG"; let parameter_counter+=7;;
+        h) ;;
     esac
 done
 
 
-# Logic based on the options set
-if [ -n "$machineName" ]; then
-    searchMachine "$machineName"
-    
-elif [ -n "$machineIP" ]; then
-    searchIP "$machineIP"
+if [ $parameter_counter -eq 1 ]; then
+    searchMachine $machineName
 
-elif [ -n "$diff" ] && [ $flag_diff -eq 1 ]; then
-    if [ $flag_os -eq 1 ]; then
-        getosDifMachine "$diff" "$os"
-    else
-        searchDifficulty "$diff"
-    fi
-elif [ -n "$os" ]; then
-    searchOS "$os"
-elif [ -n "$skill" ]; then
+elif [ $parameter_counter -eq 2 ]; then
+    updateFiles
+
+elif [ $parameter_counter -eq 3 ]; then
+    searchIP $machineIP
+
+elif [ $parameter_counter -eq 4 ]; then
+    obtainLink $machineName 
+
+elif [ $parameter_counter -eq 5 ]; then
+    searchDifficulty $diff
+
+elif [ $parameter_counter -eq 6 ]; then
+    searchOS $os
+
+elif [ $parameter_counter -eq 7 ]; then
     searchSkills "$skill"
+
+elif [ $flag_diff -eq 1 ] && [ $flag_os -eq 1 ]; then
+    getosDifMachine $diff $os
 else
     helpPanels
 fi
