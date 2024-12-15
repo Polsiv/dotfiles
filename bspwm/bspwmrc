@@ -1,6 +1,6 @@
 #! /bin/sh
-/usr/bin/xrandr -s 8
-pgrep -x sxhkd > /dev/null || sxhkd &
+/usr/bin/xrandr -s 17
+pgrep -x sxhkd > /dev/null || sxhkd & 
 
 bspc config border_width 0.1
 bspc config borderless_monocle   true
@@ -22,6 +22,7 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+
 
 vmware-user-suid-wrapper &
 /usr/bin/feh --bg-fill /home/silv/Wallpapers/thunderstorm-sea.png &
