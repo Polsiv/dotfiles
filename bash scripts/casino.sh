@@ -10,10 +10,14 @@ purpleColor="\e[0;35m\033[1m"
 turquoiseColor="\e[0;36m\033[1m"
 grayColor="\e[0;37m\033[1m"
 
+# Ctlc + C so we can exit the program
+
 function ctrl_c(){
     echo -e  "\n ${redColor}[!] Exiting... ${endColor}"
     tput cnorm; exit 1
 }   
+
+# Help Panel function
 
 function helpPanel(){
     echo -e "\n ${yellowColor}[+] ${endColor} ${grayColor}Casino flags: ${endColor}" 
