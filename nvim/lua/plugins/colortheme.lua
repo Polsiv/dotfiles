@@ -1,17 +1,19 @@
 return {
-	"shaunsingh/nord.nvim",
+	"EdenEast/nightfox.nvim",
 	lazy = false,
 	priority = 1000,
 	config = function()
-		-- Example config in lua
-		vim.g.nord_contrast = true
-		vim.g.nord_borders = false
-		vim.g.nord_disable_background = true
-		vim.g.nord_italic = false
-		vim.g.nord_uniform_diff_background = true
-		vim.g.nord_bold = false
-
 		-- Load the colorscheme
-		require("nord").set()
+		require("nightfox").setup({
+			options = {
+				transparent = true,
+				styles = {
+					comments = "italic",
+					keywords = "bold",
+					functions = "italic,bold",
+				},
+			},
+		})
+		vim.cmd("colorscheme duskfox") -- Use the desired theme (e.g., nightfox)
 	end,
 }
