@@ -23,4 +23,5 @@ require("lazy").setup({
 	require("plugins.alpha"),
 	require("plugins.misc"),
 	require("plugins.autoformat"),
+	require("plugins.vimbegood"),
 })
