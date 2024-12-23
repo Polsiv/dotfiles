@@ -5,6 +5,8 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 bspc config borderless_monocle   true
 bspc config focused_border_color \#5da7fb
 bspc config normal_border_color \#6272a4
+
+bspc monitor -d O O O O O O O O O O
 #bspc config border_radius 10
 bspc config border_width 1
 bspc config window_gap 12
