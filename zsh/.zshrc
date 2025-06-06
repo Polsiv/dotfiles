@@ -26,9 +26,11 @@ alias ls='lsd --group-dirs=first'
 #power off
 alias chao='systemctl poweroff'
 
-#pytohn
+#python
 alias py='python3'
 
+#obsidian
+alias obsidian='obsidian & disown &>/dev/null'
 
 
 # Created by newuser for 5.9
@@ -92,16 +94,41 @@ function settarget(){
     echo "$ip_address $machine_name" > /home/silv/.config/bin/target
 }
 
+#burpsuite
+function burpsuite(){
+    /home/silv/BurpSuiteCommunity/BurpSuiteCommunity & disown &>/dev/null
+}
+
+# mkt
+function mkt(){
+    machine_name="$1"
+
+    if [ -z "$machine_name" ]; then
+        echo "Usage: mkt <machine_name>"
+        return 1
+
+    fi
+
+    mkdir -p "$machine_name"/{nmap,exploits,content}
+    echo "Created directories for machine: $machine_name"
+    cd "$machine_name"/nmap
+}
+
 # Clear Target
 
 function cleartarget(){
     echo '' > /home/silv/.config/bin/target
 }
 
+#hack time
 
-
+function machines(){
+    cd /home/silv/Hacking/HTB/Machines
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source ~/powerlevel10k/powerlevel10k.zsh-theme
