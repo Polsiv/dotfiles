@@ -85,7 +85,7 @@ mv ~/git/dotfiles/p10k/forUser/.p10k.zsh ~
 **for root**
 
 ```bash
-sudo mv ~/git/dotfiles/p10k/forRoot/.p10k.zsg /root/
+sudo mv ~/git/dotfiles/p10k/forRoot/.p10k.zsh /root/
 sudo ln -s /home/silv/powerlevel10k /root/powerlevel10k
 ```
 
