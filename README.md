@@ -52,6 +52,7 @@ mv ~/git/dotfiles/rofi ~/.config/
 
 ```bash
 mv ~/git/dotfiles/zsh/.zshrc ~
+```
 
 # Picom
 
