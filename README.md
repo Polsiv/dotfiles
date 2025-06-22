@@ -98,6 +98,6 @@ sudo mv ~/git/dotfiles/fonts/* /user/local/share/fonts/
 
 # Showcase
 
-[Desktop](Showcase/Desktop.webp)
+![Desktop](Showcase/Desktop.webp)
 
-[Environment](Showcase/Environment.webp)
+![Environment](Showcase/Environment.webp)
