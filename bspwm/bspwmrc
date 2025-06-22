@@ -23,7 +23,7 @@ bspc rule -a Screenkey manage=off
 
 
 vmware-user-suid-wrapper &
-/usr/bin/feh --bg-fill /home/silv/Wallpapers/island-night.png &
+/usr/bin/feh --bg-fill /home/silv/Wallpapers/smallhead2x.png &
 ~/.config/polybar/./launch.sh &
 picom --config ~/.config/picom/picom.conf &
 wmname LG3D &
