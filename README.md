@@ -27,7 +27,7 @@ sudo systemctl start NetworkManager
 ```
 
 ```bash
-sudo apt install isc-dchp-client
+sudo apt install isc-dhcp-client
 ```
 
 **Utils**
