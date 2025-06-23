@@ -33,7 +33,7 @@ sudo apt install isc-dhcp-client
 **Utils**
 
 ```bash
-sudo apt install firefox-esr rofi ranger feh obsidian fastfetch bat lsd
+sudo apt install firefox-esr rofi ranger feh obsidian fastfetch bat lsd obsidian
 ```
 
 # Moving configuration files
@@ -76,7 +76,7 @@ mv ~/git/dotfiles/picom ~/.config/
 **for home user**
 
 ```bash
-git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ~/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 ```
 
 ```bash
