@@ -33,7 +33,7 @@ sudo apt install isc-dhcp-client
 **Utils**
 
 ```bash
-sudo apt install firefox-esr rofi ranger feh obsidian fastfetch bat lsd obsidian
+sudo apt install firefox-esr rofi ranger feh obsidian fastfetch bat lsd
 ```
 
 # Moving configuration files
