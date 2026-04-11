@@ -33,8 +33,15 @@ sudo apt install isc-dhcp-client
 **Utils**
 
 ```bash
-sudo apt install firefox-esr rofi ranger feh obsidian fastfetch bat lsd
+sudo apt install rofi ranger feh obsidian fastfetch bat lsd
 ```
+
+Install Zen browser:
+
+```
+curl -fsSL https://github.com/zen-browser/updates-server/raw/refs/heads/main/install.sh | $SHELL
+```
+
 
 # Moving configuration files
 
@@ -115,8 +122,13 @@ Add:
 .host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other 0 0
 ```
 
+# VSCoce theme
 
+```
+black
+```
 
+Other config soon
 
 # Showcase
 
