@@ -7,7 +7,7 @@ Installation guide for my Kali VM with no DE preinstalled.
 **Base**
 
 ```bash
-sudo apt update
+sudo apt update && sudo apt upgrade
 ```
 
 ```bash
@@ -96,7 +96,27 @@ sudo ln -s /home/silv/powerlevel10k /root/powerlevel10k
 sudo mv ~/git/dotfiles/fonts/* /user/local/share/fonts/
 ```
 
----
+# Sharing Obsidian Vault
+
+```
+sudo mkdir -p /mnt/hgfs
+sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
+```
+
+Open:
+
+```bash
+sudo nano /etc/fstab
+```
+
+Add:
+
+```
+.host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other 0 0
+```
+
+
+
 
 # Showcase
 

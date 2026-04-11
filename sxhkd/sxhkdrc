@@ -4,13 +4,12 @@
 
 # terminal emulator
 super + Return
-	/opt/kitty/bin/kitty
+	/usr/bin/kitty
 
 
 # program launcher
 super + d
 	/usr/bin/rofi -show run
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -121,5 +120,5 @@ super + alt + {Left,Down,Up,Right}
 
 #Open firefox
 super + shift + f
-	/usr/bin/firefox
+	/usr/local/bin/zen/zen
 
